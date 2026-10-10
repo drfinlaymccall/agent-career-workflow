@@ -1,0 +1,27 @@
+name: checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/privacy_check.py .
+      - name: Offline synthetic smoke test
+        run: |
+          python -m careerflow init "$RUNNER_TEMP/career-demo" --demo
+          python -m careerflow validate "$RUNNER_TEMP/career-demo"
+          python -m careerflow dashboard "$RUNNER_TEMP/career-demo"
+          python -m careerflow digest "$RUNNER_TEMP/career-demo"
+          python -m careerflow index "$RUNNER_TEMP/career-demo"
+          python -m careerflow search "$RUNNER_TEMP/career-demo" operations
