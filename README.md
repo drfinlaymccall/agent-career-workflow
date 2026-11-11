@@ -210,6 +210,7 @@ Do not replay a send when its outcome is unknown.
 
 ## Read more
 
+- [Build professional context with AI for LinkedIn and CVs](docs/Professional%20context%20to%20LinkedIn%20and%20CVs.md)
 - [Methodology](docs/Methodology.md)
 - [Private vault and chat maintenance](docs/Private%20vault.md)
 - [Search and discovery](docs/Search%20and%20discovery.md)
